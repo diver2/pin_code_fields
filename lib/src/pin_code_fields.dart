@@ -446,7 +446,7 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
 
   // Assigning the text controller, if empty assigning a new one.
   void _assignController() {
-      _textEditingController =  widget.controller ?? TextEditingController();
+    _textEditingController = widget.controller ?? TextEditingController();
 
     _textEditingController?.addListener(() {
       if (widget.useHapticFeedback) {
@@ -706,30 +706,50 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
               actions: _getActionButtons(formattedPastedText),
             )
           : AlertDialog(
+              backgroundColor: BelugaColors.whiteBackground,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              title: Text(_dialogConfig.dialogTitle!),
+              title: Text(
+                _dialogConfig.dialogTitle!,
+                style: TextStyle(
+                  color: BelugaColors.black,
+                  fontFamily: "Quicksand",
+                  package: "beluga_design",
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
               content: RichText(
                 text: TextSpan(
                   text: _dialogConfig.dialogContent,
                   style: TextStyle(
-                      color: Theme.of(context).textTheme.button!.color),
+                    color: BelugaColors.black,
+                    fontFamily: "Quicksand",
+                    package: "beluga_design",
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ), //
                   children: [
                     TextSpan(
                       text: formattedPastedText,
                       style: widget.pastedTextStyle ?? defaultPastedTextStyle,
                     ),
-                    TextSpan(
-                      text: " ?",
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.button!.color,
-                      ),
-                    )
+                    // TextSpan(
+                    //   text: " ?",
+                    //   style: TextStyle(
+                    //     color: BelugaColors.black,
+                    //     fontFamily: "Quicksand",
+                    //     package: "beluga_design",
+                    //     fontSize: 16,
+                    //     fontWeight: FontWeight.w500,
+                    //   ),
+                    // )
                   ],
                 ),
               ),
               actions: _getActionButtons(formattedPastedText),
+              actionsAlignment: MainAxisAlignment.spaceAround,
             ),
     );
   }
@@ -971,18 +991,66 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
       ]);
     } else {
       resultList.addAll([
-        TextButton(
-          child: Text(_dialogConfig.negativeText!),
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-          },
+        Container(
+          color: BelugaColors.whiteBackground,
+          width: 140,
+          child: TextButton(
+            style: ButtonStyle(
+              splashFactory: NoSplash.splashFactory,
+              overlayColor: MaterialStateProperty.resolveWith(
+                (states) {
+                  if (states.contains(MaterialState.pressed)) {
+                    return Colors.red[50];
+                  }
+                  return null;
+                },
+              ),
+            ),
+            child: Text(
+              _dialogConfig.negativeText!,
+              style: TextStyle(
+                color: BelugaColors.red,
+                fontFamily: "Quicksand",
+                package: "beluga_design",
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            onPressed: () {
+              Navigator.of(context, rootNavigator: true).pop();
+            },
+          ),
         ),
-        TextButton(
-          child: Text(_dialogConfig.affirmativeText!),
-          onPressed: () {
-            _textEditingController!.text = pastedText;
-            Navigator.of(context, rootNavigator: true).pop();
-          },
+        Container(
+          color: BelugaColors.whiteBackground,
+          width: 140,
+          child: TextButton(
+            style: ButtonStyle(
+              splashFactory: NoSplash.splashFactory,
+              overlayColor: MaterialStateProperty.resolveWith(
+                (states) {
+                  if (states.contains(MaterialState.pressed)) {
+                    return Colors.teal[50];
+                  }
+                  return null;
+                },
+              ),
+            ),
+            child: Text(
+              _dialogConfig.affirmativeText!,
+              style: TextStyle(
+                color: BelugaColors.primary,
+                fontFamily: "Quicksand",
+                package: "beluga_design",
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            onPressed: () {
+              _textEditingController!.text = pastedText;
+              Navigator.of(context, rootNavigator: true).pop();
+            },
+          ),
         ),
       ]);
     }
