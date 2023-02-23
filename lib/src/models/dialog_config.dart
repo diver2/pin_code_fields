@@ -32,9 +32,8 @@ class DialogConfig {
   }) {
     return DialogConfig._internal(
       affirmativeText: affirmativeText == null ? "Paste" : affirmativeText,
-      dialogContent: dialogContent == null
-          ? "Do you want to paste this code "
-          : dialogContent,
+      dialogContent:
+          dialogContent == null ? "Paste this code?\n" : dialogContent,
       dialogTitle: dialogTitle == null ? "Paste Code" : dialogTitle,
       negativeText: negativeText == null ? "Cancel" : negativeText,
       platform: platform == null ? Platform.other : platform,
