@@ -12,11 +12,17 @@ dependencies:
   flutter:
     sdk: flutter
   beluga_design:
-    path: ../lib-beluga-design
+    git:
+      url: 'git@github.com:beluga-dive/lib-beluga-design.git'
+      ref: master
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+# dependency_overrides:
+#   beluga_design:
+#     path: ../lib-beluga-design
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
